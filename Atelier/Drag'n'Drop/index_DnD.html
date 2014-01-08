@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>	
+<title>Drag'n'Drop the bass</title>
+		<!--REF-->
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Language" content="fr" />
+		<meta http-equiv="Content-Script-Type" content="text/javascript" />
+		<!-- JAVASCRIPT -->
+		<script src="support/bean/bean.min.js"></script>
+		<script src="drag.js"></script>
+ <style>
+      body {
+        margin: 0px;
+        font: 14px/1.5 "helvetica neue", helvetica, arial, sans-serif;
+        color: #8b8b8b;
+        background-color: #eee;
+      }
+      a, a:active, a:visited {
+        color: #4081af;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+      h2 {
+        display: none;
+        font-size: 33px;
+      }
+      h3 {
+        padding: 5px 0;
+        font-size: 18px;
+        border-bottom: 3px solid #eee;
+      }
+      p.bold {
+        font-weight: bold;
+        margin-bottom: 0px;
+      }
+      #page {
+        margin: 0px auto;
+        width: 700px;
+        background: white;
+      }
+      .container {
+        position: relative;
+        border: 1px red solid;
+        height: 400px;
+      }
+	  
+	  #blender{
+	  width:120px;
+	  height:120px;
+	  border:2px solid pink;
+	  background:grey;
+	  position:absolute;
+	  top:50%;
+	  left:50%;
+	  
+	  }
+	  
+      .box {
+        font-size: 11px;
+        text-align: center;
+        line-height: 50px;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 40px;
+        left: 40px;
+      }
+	  
+      #box1{
+	  border: 1px solid red;
+       background: yellow;
+	  }
+      
+	  #box2{
+	  border: 1px solid green;
+      background: blue;
+	  left: 100px;
+	  }
+    
+	</style>
+  </head>
+  <body>
+
+    <div id="page">
+
+        <div id="example3">
+          <h3 id="ex3title">Limit Movement to Container & Event Callbacks</h3>
+          <div id="container3" class="container">
+		  <div id="example3status"></div>
+		  <div id="example4status"></div>
+			<div id="blender"></div>
+            <div id="box1" class="box"></div>
+            <div id="box2" class="box"></div>
+			
+			
+          </div>
+          <script>
+			/********************LIMITE DANS UNE DIV********************/
+		  
+            drag('#container3 #box1')
+              .container('#container3')
+              .bind();
+            drag('#container3 #box2')
+              .container('#container3')
+              /*definis limite axe :.axis('y')*/
+              .bind();
+			  
+			  
+			  /********************FEED BACK*****************************/
+			  
+			  drag('#container3 #box1')
+              .container('#container3')
+              .start(function() {
+                document.getElementById('ex3title').innerHTML = 'Event Callbacks for start and...';
+              })
+              .dragging(function() {
+                document.getElementById('example3status').innerHTML = 'dragging... ' + this.pos.x + 'px , ' + this.pos.y + 'px';
+              })
+              .end(function() {
+                document.getElementById('ex3title').innerHTML = 'Event Callbacks for start and... end.';
+              })
+              .bind();
+			  
+			   drag('#container3 #box2')
+              .container('#container3')
+              .start(function() {
+                document.getElementById('ex3title').innerHTML = 'Event Callbacks for start and...';
+              })
+              .dragging(function() {
+                document.getElementById('example4status').innerHTML = 'dragging... ' + this.pos.x + 'px , ' + this.pos.y + 'px';
+              })
+              .end(function() {
+                document.getElementById('ex3title').innerHTML = 'Event Callbacks for start and... end.';
+              })
+              .bind();
+          </script>
+        </div>
+
+    </div>
+  </body>
+</html>
